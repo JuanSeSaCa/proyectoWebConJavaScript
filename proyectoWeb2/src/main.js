@@ -185,7 +185,42 @@ class MyElement extends LitElement {
 
   render() {
     return html`
-      <!-- Contenido HTML aquí -->
+    <div class="contain">
+    <header class="header">
+        <h1 class="logo">CampusShop</h1>
+        <button class="open__menu" @click="${this.openMenu}">
+            <img class="menu__svg" src="./public/menu.svg" alt="">
+        </button>
+    </header>
+    <aside class="${this.menuOpen ? 'aside-visible' : ''}">
+        <header class="header__menue">
+            <h1 class="logo">CampusShop</h1>
+            <button class="close__menu" @click="${this.closeMenu}">
+                <img class="closeMenu__svg" src="./public/closeMenu__svg.svg" alt="">
+            </button>
+        </header>
+            <nav>
+                <ul class="menu">
+                    <li><button class="button__Category ${this.activeCategory === 'all' ? 'active' : ''}" @click=${() => this.changeCategory('all')}>Todos los Productos</button></li>
+                    <li><button class="button__Category ${this.activeCategory === 'abrigos' ? 'active' : ''}" @click=${() => this.changeCategory('abrigos')}>Abrigos</button></li>
+                    <li><button class="button__Category ${this.activeCategory === 'camisas' ? 'active' : ''}" @click=${() => this.changeCategory('camisas')}>Camisetas</button></li>
+                    <li><button class="button__Category ${this.activeCategory === 'pantalones' ? 'active' : ''}" @click=${() => this.changeCategory('pantalones')}>Pantalones</button></li>
+                    <li style="width: 100%;">
+                        <a class="cart__Button ${this.view === 'cart' ? 'active' : ''}" @click=${this.viewCart}>
+                            Cart
+                            <span class="number">${this.cartItems.length}</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <footer>
+                <p class="footer__text">© 2024 CampusShop</p>
+            </footer>
+        </aside>
+        <main>
+            ${this.view === 'products' ? this.renderProducts() : this.renderCart()}
+        </main>
+    </div>
     `;
   }
 }
