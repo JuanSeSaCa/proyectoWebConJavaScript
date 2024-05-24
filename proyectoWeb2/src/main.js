@@ -225,6 +225,61 @@ class MyElement extends LitElement {
   }
 }
 
+
+
+
+
+removeFromCart(productId) {
+  const itemIndex = this.cartItems.findIndex(item => item.id === productId);
+  if (itemIndex > -1) {
+      if (this.cartItems[itemIndex].quantity > 1) {
+          this.cartItems[itemIndex].quantity -= 1;
+          this.cartItems[itemIndex].subtotal = this.cartItems[itemIndex].quantity * this.cartItems[itemIndex].price;
+      } else {
+          this.cartItems = this.cartItems.filter(item => item.id !== productId);
+      }
+  }
+  this.requestUpdate();
+}
+
+
+
+emptyCart() {
+  this.cartItems = [];
+  this.requestUpdate();
+}
+
+
+addToCart(product) {
+  added()
+  const cartItem = this.cartItems.find(item => item.id === product.id);
+  if (cartItem) {
+      cartItem.quantity += 1;
+      cartItem.subtotal = cartItem.quantity * cartItem.price;
+  } else {
+      this.cartItems = [
+          ...this.cartItems,
+          { ...product, quantity: 1, subtotal: product.price }
+      ];
+  }
+  this.requestUpdate();
+}
+
+
+
+openMenu() {
+  this.menuOpen = true;
+  this.requestUpdate();
+}
+
+
+closeMenu() {
+  this.menuOpen = false;
+  this.requestUpdate();
+}
+
+
+
 customElements.define('my-element', MyElement);
 
 
