@@ -164,7 +164,7 @@ class MyElement extends LitElement {
 
   async loadProducts() {
     try {
-      const response = await fetch('../src/productos.json');
+      const response = await fetch('../src/productos.jsonn');
       const data = await response.json();
       this.products = data.map(item => ({
         id: item.id,
@@ -193,7 +193,7 @@ class MyElement extends LitElement {
         </button>
     </header>
     <aside class="${this.menuOpen ? 'aside-visible' : ''}">
-        <header class="header__menue">
+        <header class="header__menu">
             <h1 class="logo">CampusShop</h1>
             <button class="close__menu" @click="${this.closeMenu}">
                 <img class="closeMenu__svg" src="./public/closeMenu__svg.svg" alt="">
@@ -223,100 +223,88 @@ class MyElement extends LitElement {
     </div>
     `;
   }
-}
+
+  vie
 
 
 
 
 
-removeFromCart(productId) {
-  const itemIndex = this.cartItems.findIndex(item => item.id === productId);
-  if (itemIndex > -1) {
-      if (this.cartItems[itemIndex].quantity > 1) {
-          this.cartItems[itemIndex].quantity -= 1;
-          this.cartItems[itemIndex].subtotal = this.cartItems[itemIndex].quantity * this.cartItems[itemIndex].price;
-      } else {
-          this.cartItems = this.cartItems.filter(item => item.id !== productId);
-      }
+
+  removeFromCart(productId) {
+    const itemIndex = this.cartItems.findIndex(item => item.id === productId);
+    if (itemIndex > -1) {
+        if (this.cartItems[itemIndex].quantity > 1) {
+            this.cartItems[itemIndex].quantity -= 1;
+            this.cartItems[itemIndex].subtotal = this.cartItems[itemIndex].quantity * this.cartItems[itemIndex].price;
+        } else {
+            this.cartItems = this.cartItems.filter(item => item.id !== productId);
+        }
+    }
+    this.requestUpdate();
   }
-  this.requestUpdate();
-}
 
 
 
-emptyCart() {
-  this.cartItems = [];
-  this.requestUpdate();
-}
-
-
-addToCart(product) {
-  added()
-  const cartItem = this.cartItems.find(item => item.id === product.id);
-  if (cartItem) {
-      cartItem.quantity += 1;
-      cartItem.subtotal = cartItem.quantity * cartItem.price;
-  } else {
-      this.cartItems = [
-          ...this.cartItems,
-          { ...product, quantity: 1, subtotal: product.price }
-      ];
+  emptyCart() {
+    this.cartItems = [];
+    this.requestUpdate();
   }
-  this.requestUpdate();
+
+
+  addToCart(product) {
+    added()
+    const cartItem = this.cartItems.find(item => item.id === product.id);
+    if (cartItem) {
+        cartItem.quantity += 1;
+        cartItem.subtotal = cartItem.quantity * cartItem.price;
+    } else {
+        this.cartItems = [
+            ...this.cartItems,
+            { ...product, quantity: 1, subtotal: product.price }
+        ];
+    }
+    this.requestUpdate();
+  }
+
+
+
+  openMenu() {
+    this.menuOpen = true;
+    this.requestUpdate();
+  }
+
+
+  closeMenu() {
+    this.menuOpen = false;
+    this.requestUpdate();
+  }
+
+
 }
-
-
-
-openMenu() {
-  this.menuOpen = true;
-  this.requestUpdate();
-}
-
-
-closeMenu() {
-  this.menuOpen = false;
-  this.requestUpdate();
-}
-
-
-
 customElements.define('my-element', MyElement);
 
 
 
 
 
-//
-    
-    const showNotification = (options) => {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: options.position || "top-end",
-        showConfirmButton: options.showConfirmButton || false,
-        timer: options.timer || 2000,
-        timerProgressBar: options.timerProgressBar || true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        }
-      });
-      Toast.fire({
-        icon: options.icon || "success",
-        title: options.title || "Producto Agregado con exito ;)"
-      });
-    };
-    
-    const added = async () => {
-      try {
-        // Código adicional aquí...
-    
-        // Mostrar la notificación
-        showNotification({
-          icon: "success",
-          title: "Producto Agregado con exito ;)"
-        });
-      } catch (error) {
-        console.error("Error:", error);
-        // Manejar el error de alguna manera adecuada
-      }
-    };
+  //
+      
+const added = async () => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
+  Toast.fire({
+    icon: "success",
+    title: "Producto agregado exitosamente :)"
+  });
+}
+   
