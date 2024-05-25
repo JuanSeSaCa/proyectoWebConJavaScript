@@ -27,3 +27,34 @@ src: url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200
   font-family: 'Poppins', sans-serif;
 
 }
+
+h1, h2, h4, h5, p, a, input, textarea {
+  margin: 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  background: ;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+background: ;
+border-radius: 5px; 
+}
+::-webkit-scrollbar-thumb {
+  background: ;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: ;
+  border-radius: ;
+}
